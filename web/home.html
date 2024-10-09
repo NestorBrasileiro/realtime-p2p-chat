@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat WebSocket</title>
+</head>
+<body>
+    <h1>WebSocket Chat</h1>
+    <input type="text" id="messageInput" placeholder="Escreva uma mensagem">
+    <button onclick="sendMessage()">Enviar</button>
+    <div id="chatLog"></div>
+
+    <script>
+        let ws = new WebSocket("ws://localhost:3000/ws");
+
+        ws.onmessage = function(event) {
+            let chatLog = document.getElementById('chatLog');
+            let newMessage = document.createElement('div');
+            newMessage.textContent = event.data;
+            chatLog.appendChild(newMessage);
+        };
+
+        function sendMessage() {
+            let messageInput = document.getElementById('messageInput');
+            ws.send(messageInput.value);
+            messageInput.value = '';
+        }
+    </script>
+</body>
+</html>
