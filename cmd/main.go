@@ -12,9 +12,9 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
-func handleConnections(w http.ResponseWriter, r *http.Request) {
+func handleConnections(responseWriter http.ResponseWriter, request *http.Request) {
 
-	ws, err := upgrader.Upgrade(w, r, nil)
+	ws, err := upgrader.Upgrade(responseWriter, request, nil)
 
 	if err != nil {
 		fmt.Println(err)
@@ -24,13 +24,14 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	defer ws.Close()
 
 	for {
-		_, message, err := ws.ReadMessage()
+		// _ é o tipo da mensagem que nesse caso está sendo ignorado
+		messageType, message, err := ws.ReadMessage()
 
 		if err != nil {
 			fmt.Println("Error reading message: ", err)
 			break
 		}
-		fmt.Println("Received message: ", string(message))
+		fmt.Println("Received message: ", messageType, string(message))
 
 		if err := ws.WriteMessage(websocket.TextMessage, message); err != nil {
 			fmt.Println("Error writing message:", err)
