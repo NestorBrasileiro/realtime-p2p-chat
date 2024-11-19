@@ -1,4 +1,4 @@
-# Realtime P2P Chat  
+# Realtime P2P Chat  (WORK IN PROGRESS)
 
 Um sistema de chat ponto a ponto (P2P) em tempo real, que permite a comunicação direta entre usuários sem a necessidade de um servidor centralizado.  
 
